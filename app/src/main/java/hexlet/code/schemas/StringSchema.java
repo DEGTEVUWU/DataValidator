@@ -3,6 +3,8 @@ package hexlet.code.schemas;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 public class StringSchema {
@@ -31,5 +33,18 @@ public class StringSchema {
             return str.contains(containsString);
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StringSchema that = (StringSchema) o;
+        return required == that.required && Objects.equals(containsString, that.containsString);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(required, containsString);
     }
 }
