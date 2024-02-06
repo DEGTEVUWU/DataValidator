@@ -34,7 +34,4 @@ public class App {
         System.out.println(schema.contains("wh").isValid("what"));
 
     }
-    public static String testMethod(String test) {
-        return test;
-    }
 }
