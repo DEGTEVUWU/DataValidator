@@ -1,7 +1,5 @@
 package hexlet.code;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.Test;
 
