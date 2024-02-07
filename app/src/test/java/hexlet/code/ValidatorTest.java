@@ -22,4 +22,25 @@ class ValidatorTest {
         assertThat(actual2.getContainsString()).isEqualTo(expected3);
 
     }
+    @Test
+    void numberMethodTest() {
+        var actual1 = new Validator().number();
+        actual1.setAllowNull(true);
+        actual1.setAllowPositive(true);
+        actual1.setMinRange(3);
+        actual1.setMaxRange(6);
+
+
+        var expected1 = true;
+        var expected2 = true;
+        var expected3 = 3;
+        var expected4 = 6;
+
+        assertThat(actual1.isAllowNull()).isEqualTo(expected1);
+        assertThat(actual1.isAllowPositive()).isEqualTo(expected2);
+        assertThat(actual1.getMinRange()).isEqualTo(expected3);
+        assertThat(actual1.getMaxRange()).isEqualTo(expected4);
+
+
+    }
 }

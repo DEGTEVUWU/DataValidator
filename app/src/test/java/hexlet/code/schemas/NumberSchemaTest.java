@@ -8,12 +8,14 @@ class NumberSchemaTest {
     @Test
     void requiredMethodTest() {
         var actual1 = new NumberSchema();
+
         actual1.setAllowNull(true);
 
         var expected1 = new NumberSchema();
         expected1.required();
 
         assertThat(actual1).isEqualTo(expected1);
+
     }
 
     @Test
