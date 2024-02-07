@@ -11,7 +11,7 @@ class NumberSchemaTest {
     @Test
     void requiredMethodTest() {
         var actual1 = new NumberSchema();
-        actual1.setRequired(true);
+        actual1.setAllowNull(true);
 
         var expected1 = new NumberSchema();
         expected1.required();
@@ -22,7 +22,7 @@ class NumberSchemaTest {
     @Test
     void positiveMethodTest() {
         var actual1 = new NumberSchema();
-        actual1.setPositive(true);
+        actual1.setAllowPositive(true);
 
         var expected1 = new NumberSchema();
         expected1.positive();
@@ -33,30 +33,30 @@ class NumberSchemaTest {
     @Test
     void rangeMethodTest() {
         var actual1 = new NumberSchema();
-        actual1.setMinLength(3);
-        actual1.setMaxLength(6);
+        actual1.setMinRange(3);
+        actual1.setMaxRange(6);
 
         var expected1 = new NumberSchema();
         expected1.range(3, 6);
 
-        assertThat(actual1.getMinLength()).isEqualTo(expected1.getMinLength());
-        assertThat(actual1.getMaxLength()).isEqualTo(expected1.getMaxLength());
+        assertThat(actual1.getMinRange()).isEqualTo(expected1.getMinRange());
+        assertThat(actual1.getMaxRange()).isEqualTo(expected1.getMaxRange());
 
     }
 
     @Test
     void isValidMethodTest() {
         var obj1 = new NumberSchema();
-        obj1.setRequired(true);
+        obj1.setAllowNull(true);
         var actual1 = obj1.isValid(12);
 
         var obj2 = new NumberSchema();
-        obj2.setPositive(true);
+        obj2.setAllowPositive(true);
         var actual2 = obj2.isValid(12);
 
         var obj3 = new NumberSchema();
-        obj3.setMinLength(3);
-        obj3.setMaxLength(6);
+        obj3.setMinRange(3);
+        obj3.setMaxRange(6);
         var actual3 = obj3.isValid(5);
 
         var expectedObj1 = new NumberSchema();

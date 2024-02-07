@@ -7,7 +7,7 @@ class StringSchemaTest {
     @Test
     void requiredMethodTest() {
         var actual1 = new StringSchema();
-        actual1.setRequired(true);
+        actual1.setAllowNull(true);
 
         var expected1 = new StringSchema();
         expected1.required();
@@ -18,7 +18,7 @@ class StringSchemaTest {
     @Test
     void containsMethodTest() {
         var actual1 = new StringSchema();
-        actual1.setContainsString("Some text");
+        actual1.setContainsString("Som");
 
         var expected1 = new StringSchema();
         expected1.contains("Som");
@@ -29,7 +29,7 @@ class StringSchemaTest {
     @Test
     void isValidMethodTest() {
         var obj1 = new StringSchema();
-        obj1.setRequired(true);
+        obj1.setAllowNull(true);
         var actual1 = obj1.isValid("Some text");
 
         var obj2 = new StringSchema();
