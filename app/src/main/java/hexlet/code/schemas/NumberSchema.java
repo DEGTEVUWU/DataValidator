@@ -8,38 +8,38 @@ import java.util.Objects;
 @Getter
 @Setter
 public class NumberSchema {
-    private boolean required = false;
-    private boolean positive = false;
-    private int minLength;
-    private int maxLength;
+    private boolean allowNull = false;
+    private boolean allowPositive = false;
+    private Integer minRange = null;
+    private Integer maxRange = null;
 
     public NumberSchema required() {
-        this.required = true;
+        this.allowNull = true;
         return this;
     }
 
     public NumberSchema positive() {
-        this.positive = true;
+        this.allowPositive = true;
         return this;
     }
 
-    public NumberSchema range(int minLength, int maxLength) {
-        this.minLength = minLength;
-        this.maxLength = maxLength;
+    public NumberSchema range(int min, int max) {
+        this.minRange = min;
+        this.maxRange = max;
         return this;
     }
 
-    public boolean isValid(int number) {
-        NumberSchema schema = new NumberSchema();
-        schema.required = this.required;
-        schema.positive = this.positive;
-        schema.minLength = this.minLength;
-        schema.maxLength = maxLength;
-
-        if (required || positive) {
+    public boolean isValid(Integer number) {
+        if (number == null) {
+            return !this.allowNull;
+        }
+        if (this.allowPositive && number <= 0) {
             return false;
         }
-        if (minLength > number || maxLength < number) {
+        if (this.minRange != null && number < this.minRange) {
+            return false;
+        }
+        if (this.maxRange != null && number > this.maxRange) {
             return false;
         }
         return true;
@@ -50,11 +50,11 @@ public class NumberSchema {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NumberSchema that = (NumberSchema) o;
-        return required == that.required && positive == that.positive && minLength == that.minLength && maxLength == that.maxLength;
+        return allowNull == that.allowNull && allowPositive == that.allowPositive && Objects.equals(minRange, that.minRange) && Objects.equals(maxRange, that.maxRange);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(required, positive, minLength, maxLength);
+        return Objects.hash(allowNull, allowPositive, minRange, maxRange);
     }
 }

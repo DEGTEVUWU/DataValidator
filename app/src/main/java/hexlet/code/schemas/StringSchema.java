@@ -8,12 +8,12 @@ import java.util.Objects;
 @Getter
 @Setter
 public class StringSchema {
-    private boolean required = false;
+    private boolean allowNull = false;
     private String containsString = "";
     private int length;
 
     public StringSchema required() {
-        this.required = true;
+        this.allowNull = true;
         return this;
     }
 
@@ -27,15 +27,11 @@ public class StringSchema {
     }
 
     public boolean isValid(String str) {
-        StringSchema schema = new StringSchema();
-        schema.required = this.required;
-        schema.containsString = this.containsString;
-
-        if (required && (str == null || str.isEmpty())) {
+        if (allowNull && (str == null || str.isEmpty())) {
             return false;
         }
-        if (!containsString.isEmpty()) {
-            return str.contains(containsString);
+        if (!containsString.isEmpty() && !str.contains(containsString)) {
+            return false;
         }
         if (str.length() < length) {
             return false;
@@ -52,11 +48,11 @@ public class StringSchema {
             return false;
         }
         StringSchema that = (StringSchema) o;
-        return required == that.required && Objects.equals(containsString, that.containsString);
+        return allowNull == that.allowNull && Objects.equals(containsString, that.containsString);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(required, containsString);
+        return Objects.hash(allowNull, containsString);
     }
 }
