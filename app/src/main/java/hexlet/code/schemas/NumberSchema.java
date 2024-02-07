@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class NumberSchema {
+public class NumberSchema extends BaseSchema<Integer> {
     private boolean allowNull = false;
     private boolean allowPositive = false;
     private Integer minRange = null;
@@ -29,6 +29,7 @@ public class NumberSchema {
         return this;
     }
 
+    @Override
     public boolean isValid(Integer number) {
         if (number == null) {
             return !this.allowNull;
@@ -47,14 +48,20 @@ public class NumberSchema {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         NumberSchema that = (NumberSchema) o;
-        return allowNull == that.allowNull && allowPositive == that.allowPositive && Objects.equals(minRange, that.minRange) && Objects.equals(maxRange, that.maxRange);
+        return allowNull == that.allowNull && allowPositive == that.allowPositive
+                && Objects.equals(minRange, that.minRange) && Objects.equals(maxRange, that.maxRange);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(allowNull, allowPositive, minRange, maxRange);
     }
+
 }

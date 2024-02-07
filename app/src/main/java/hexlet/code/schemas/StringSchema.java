@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class StringSchema {
+public class StringSchema extends BaseSchema<String> {
     private boolean allowNull = false;
     private String containsString = "";
     private int length;
@@ -21,11 +21,12 @@ public class StringSchema {
         this.containsString = chars;
         return this;
     }
-    public StringSchema minLength(int length) {
-        this.length = length;
+    public StringSchema minLength(int minLength) {
+        this.length = minLength;
         return this;
     }
 
+    @Override
     public boolean isValid(String str) {
         if (allowNull && (str == null || str.isEmpty())) {
             return false;
