@@ -10,6 +10,7 @@ import java.util.Objects;
 public class StringSchema {
     private boolean required = false;
     private String containsString = "";
+    private int length;
 
     public StringSchema required() {
         this.required = true;
@@ -18,6 +19,10 @@ public class StringSchema {
 
     public StringSchema contains(String chars) {
         this.containsString = chars;
+        return this;
+    }
+    public StringSchema minLength(int length) {
+        this.length = length;
         return this;
     }
 
@@ -31,6 +36,9 @@ public class StringSchema {
         }
         if (!containsString.isEmpty()) {
             return str.contains(containsString);
+        }
+        if (str.length() < length) {
+            return false;
         }
         return true;
     }
