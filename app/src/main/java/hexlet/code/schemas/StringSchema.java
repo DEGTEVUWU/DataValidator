@@ -30,11 +30,9 @@ public class StringSchema extends BaseSchema<String> {
     public boolean isValid(String str) {
         if (allowNull && (str == null || str.isEmpty())) {
             return false;
-        }
-        if (!containsString.isEmpty() && !str.contains(containsString)) {
+        } else if (!containsString.isEmpty() && !str.contains(containsString)) {
             return false;
-        }
-        if (str.length() < length) {
+        } else if (str.length() < length) {
             return false;
         }
         return true;
