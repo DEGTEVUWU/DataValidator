@@ -33,13 +33,15 @@ class NumberSchemaTest {
     @Test
     void rangeMethodTest() {
         var actual1 = new NumberSchema();
-        actual1.setMaxLength(3);
+        actual1.setMinLength(3);
         actual1.setMaxLength(6);
 
         var expected1 = new NumberSchema();
         expected1.range(3, 6);
 
-        assertThat(actual1).isEqualTo(expected1);
+        assertThat(actual1.getMinLength()).isEqualTo(expected1.getMinLength());
+        assertThat(actual1.getMaxLength()).isEqualTo(expected1.getMaxLength());
+
     }
 
     @Test
@@ -67,7 +69,7 @@ class NumberSchemaTest {
 
         var expectedObj3 = new NumberSchema();
         expectedObj3.range(3, 6);
-        var expected3 = expectedObj3.isValid(12);
+        var expected3 = expectedObj3.isValid(5);
 
 
         assertThat(actual1).isEqualTo(expected1);
