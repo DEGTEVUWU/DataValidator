@@ -10,8 +10,8 @@ import java.util.Objects;
 public class NumberSchema extends BaseSchema<Integer> {
     private boolean allowNull = false;
     private boolean allowPositive = false;
-    private Integer minRange = null;
-    private Integer maxRange = null;
+    private int minRange;
+    private int maxRange;
 
     public NumberSchema required() {
         this.allowNull = true;
@@ -31,18 +31,15 @@ public class NumberSchema extends BaseSchema<Integer> {
 
     @Override
     public boolean isValid(Integer number) {
+
         if (number == null) {
             return !this.allowNull;
-        }
-        if (this.allowPositive && number <= 0) {
+        } else if (this.allowPositive && number <= 0) {
+            return false;
+        } else if (number < this.minRange || number > this.maxRange) {
             return false;
         }
-        if (this.minRange != null && number < this.minRange) {
-            return false;
-        }
-        if (this.maxRange != null && number > this.maxRange) {
-            return false;
-        }
+
         return true;
     }
 
