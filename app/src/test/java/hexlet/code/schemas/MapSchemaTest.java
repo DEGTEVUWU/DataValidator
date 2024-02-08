@@ -8,6 +8,11 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MapSchemaTest {
+    private static final int notAMagicNumberForTests1 = 1;
+    private static final int notAMagicNumberForTests2 = 2;
+    private static final int notAMagicNumberForTests3 = 3;
+    private static final int notAMagicNumberForTest4 = 4;
+    private static final int notAMagicNumberForTest6 = 6;
 
     @Test
     void requiredMethodTest() {
@@ -26,10 +31,10 @@ class MapSchemaTest {
     void sizeofMethodTest() {
         var actual1 = new MapSchema();
 
-        actual1.setQuantityPair(3);
+        actual1.setQuantityPair(notAMagicNumberForTests3);
 
         var expected1 = new MapSchema();
-        expected1.sizeof(3);
+        expected1.sizeof(notAMagicNumberForTests3);
 
         assertThat(actual1).isEqualTo(expected1);
 
@@ -40,7 +45,7 @@ class MapSchemaTest {
         var schema = v.map();
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", v.string().required());
-        schemas.put("lastName", v.string().required().minLength(2));
+        schemas.put("lastName", v.string().required().minLength(notAMagicNumberForTests2));
         schema.shape(schemas);
 
         Map<String, String> human1 = new HashMap<>();
@@ -77,16 +82,16 @@ class MapSchemaTest {
         var schema = v.map();
 
         Map<Integer, BaseSchema<Integer>> schemas2 = new HashMap<>();
-        schemas2.put(1, v.number().required());
-        schemas2.put(2, v.number().required().positive());
-        schemas2.put(3, v.number().required().positive().range(2, 6));
+        schemas2.put(notAMagicNumberForTests1, v.number().required());
+        schemas2.put(notAMagicNumberForTests2, v.number().required().positive());
+        schemas2.put(notAMagicNumberForTests3, v.number().required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTest6));
 
         schema.shape(schemas2);
 
         Map<Integer, Integer> map1 = new HashMap<>();
-        map1.put(1, 1);
-        map1.put(2, 33);
-        map1.put(3, 4);
+        map1.put(notAMagicNumberForTests1, notAMagicNumberForTests1);
+        map1.put(notAMagicNumberForTests2, notAMagicNumberForTest6);
+        map1.put(notAMagicNumberForTests3, notAMagicNumberForTest4);
 
         var actual = schema.isValid(map1);
 
@@ -102,7 +107,7 @@ class MapSchemaTest {
         var actual1 = obj1.isValid(new HashMap<>());
 
         var obj2 = new MapSchema();
-        obj2.setQuantityPair(1);
+        obj2.setQuantityPair(notAMagicNumberForTests1);
         var data = new HashMap<>();
         data.put("key", "value");
         var actual2 = obj2.isValid(data);
@@ -115,7 +120,7 @@ class MapSchemaTest {
         var expected1 = expectedObj1.isValid(new HashMap<>());
 
         var expectedObj2 = new MapSchema();
-        expectedObj2.sizeof(1);
+        expectedObj2.sizeof(notAMagicNumberForTests1);
         var dataExpected = new HashMap<>();
         dataExpected.put("key", "value");
         var expected2 = expectedObj2.isValid(dataExpected);

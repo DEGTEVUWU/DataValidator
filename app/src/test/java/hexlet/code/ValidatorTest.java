@@ -10,6 +10,9 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
+    private static final int notAMagicNumberForTests2 = 2;
+    private static final int notAMagicNumberForTests3 = 3;
+    private static final int notAMagicNumberForTest6 = 6;
 
     @Test
     void stringMethodTest() {
@@ -31,14 +34,14 @@ class ValidatorTest {
         var actual1 = new Validator().number();
         actual1.setAllowNull(true);
         actual1.setAllowPositive(true);
-        actual1.setMinRange(3);
-        actual1.setMaxRange(6);
+        actual1.setMinRange(notAMagicNumberForTests3);
+        actual1.setMaxRange(notAMagicNumberForTest6);
 
 
         var expected1 = true;
         var expected2 = true;
-        var expected3 = 3;
-        var expected4 = 6;
+        var expected3 = notAMagicNumberForTests3;
+        var expected4 = notAMagicNumberForTest6;
 
         assertThat(actual1.getAllowNull()).isEqualTo(expected1);
         assertThat(actual1.getAllowPositive()).isEqualTo(expected2);
@@ -52,7 +55,7 @@ class ValidatorTest {
         var actual1 = new Validator().map();
         actual1.setAllowNull(true);
         actual1.setAllowShape(true);
-        actual1.setQuantityPair(3);
+        actual1.setQuantityPair(notAMagicNumberForTests3);
 
         var mapWithSchema = new HashMap<String, BaseSchema<String>>();
         mapWithSchema.put("key1", baseSchemaTestObj.string().required());
@@ -60,7 +63,7 @@ class ValidatorTest {
 
         var expected1 = true;
         var expected2 = true;
-        var expected3 = 3;
+        var expected3 = notAMagicNumberForTests3;
 
         assertThat(actual1.isAllowNull()).isEqualTo(expected1);
         assertThat(actual1.isAllowShape()).isEqualTo(expected2);
@@ -73,7 +76,7 @@ class ValidatorTest {
 
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", v.string().required());
-        schemas.put("lastName", v.string().required().minLength(2));
+        schemas.put("lastName", v.string().required().minLength(notAMagicNumberForTests2));
 
         schema.shape(schemas);
 

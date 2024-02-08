@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StringSchemaTest {
-
+    private static final int notAMagicNumberForTests5 = 5;
     @Test
     void requiredMethodTest() {
         var actual1 = new StringSchema();
@@ -37,7 +37,7 @@ class StringSchemaTest {
         var actual2 = obj2.isValid("Some text");
 
         var obj3 = new StringSchema();
-        obj3.setLength(5);
+        obj3.setLength(notAMagicNumberForTests5);
         var actual3 = obj3.isValid("Some text");
 
         var expectedObj1 = new StringSchema();
@@ -49,7 +49,7 @@ class StringSchemaTest {
         var expected2 = expectedObj2.isValid("Some text");
 
         var expectedObj3 = new StringSchema();
-        expectedObj3.minLength(5);
+        expectedObj3.minLength(notAMagicNumberForTests5);
         var expected3 = expectedObj3.isValid("Some text");
 
         assertThat(actual1).isEqualTo(expected1);
