@@ -71,6 +71,29 @@ class MapSchemaTest {
         assertThat(schema.isAllowShape()).isEqualTo(expected4);
 
     }
+    @Test
+    void shapeMethodTestWithNumberValues() {
+        var v = new Validator();
+        var schema = v.map();
+
+        Map<Integer, BaseSchema<Integer>> schemas2 = new HashMap<>();
+        schemas2.put(1, v.number().required());
+        schemas2.put(2, v.number().required().positive());
+        schemas2.put(3, v.number().required().positive().range(2, 6));
+
+        schema.shape(schemas2);
+
+        Map<Integer, Integer> map1 = new HashMap<>();
+        map1.put(1, 1);
+        map1.put(2, 33);
+        map1.put(3, 4);
+
+        var actual = schema.isValid(map1);
+
+        var expected = true;
+
+        assertThat(actual).isEqualTo(expected);
+    }
 
     @Test
     void isValidMethodTest() {
