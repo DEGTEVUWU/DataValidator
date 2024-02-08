@@ -36,8 +36,8 @@ class ValidatorTest {
         var expected3 = 3;
         var expected4 = 6;
 
-        assertThat(actual1.isAllowNull()).isEqualTo(expected1);
-        assertThat(actual1.isAllowPositive()).isEqualTo(expected2);
+        assertThat(actual1.getAllowNull()).isEqualTo(expected1);
+        assertThat(actual1.getAllowPositive()).isEqualTo(expected2);
         assertThat(actual1.getMinRange()).isEqualTo(expected3);
         assertThat(actual1.getMaxRange()).isEqualTo(expected4);
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class MapSchema<K, V> extends BaseSchema <Map<K, V>> {
+public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
     private boolean allowNull = false;
     private boolean allowShape = false;
     private Integer quantityPair;
@@ -22,7 +22,7 @@ public class MapSchema<K, V> extends BaseSchema <Map<K, V>> {
         this.quantityPair = quantity;
     }
 
-    public void shape(Map <K, V> map) {
+    public void shape(Map<K, V> map) {
         this.allowShape = true;
         mapWithShape.putAll((Map<? extends K, ? extends BaseSchema<V>>) map);
     }
@@ -30,11 +30,9 @@ public class MapSchema<K, V> extends BaseSchema <Map<K, V>> {
     public boolean isValid(Map<K, V> value) {
         if (value == null) {
             return !this.allowNull;
-        }
-        if (quantityPair != null && quantityPair != value.size()) {
+        } else if (quantityPair != null && quantityPair != value.size()) {
             return false;
-        }
-        if (allowShape) {
+        } else if (allowShape) {
             for (var pairs : mapWithShape.entrySet()) {
                 K key = pairs.getKey();
                 V valueForValidation = value.get(key);
