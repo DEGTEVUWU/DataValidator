@@ -3,8 +3,8 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StringSchemaTest {
-    private static final int notAMagicNumberForTests5 = 5;
-    private static final String notAMagicValueForTestNull = null;
+    private final int notAMagicNumberForTests5 = 5;
+    private final String notAMagicValueForTestNull = null;
 
     @Test
     void requiredMethodTest() {

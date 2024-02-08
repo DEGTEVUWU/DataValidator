@@ -8,12 +8,12 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MapSchemaTest {
-    private static final int notAMagicNumberForTests1 = 1;
-    private static final int notAMagicNumberForTests2 = 2;
-    private static final int notAMagicNumberForTests3 = 3;
-    private static final int notAMagicNumberForTest4 = 4;
-    private static final int notAMagicNumberForTest6 = 6;
-    private static final Map notAMagicMapForTestNull = null;
+    private final int notAMagicNumberForTests1 = 1;
+    private final int notAMagicNumberForTests2 = 2;
+    private final int notAMagicNumberForTests3 = 3;
+    private final int notAMagicNumberForTest4 = 4;
+    private final int notAMagicNumberForTest6 = 6;
+    private final Map notAMagicMapForTestNull = null;
 
     @Test
     void requiredMethodTest() {
@@ -85,7 +85,8 @@ class MapSchemaTest {
         Map<Integer, BaseSchema<Integer>> schemas2 = new HashMap<>();
         schemas2.put(notAMagicNumberForTests1, v.number().required());
         schemas2.put(notAMagicNumberForTests2, v.number().required().positive());
-        schemas2.put(notAMagicNumberForTests3, v.number().required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTest6));
+        schemas2.put(notAMagicNumberForTests3, v.number().required().positive()
+                .range(notAMagicNumberForTests2, notAMagicNumberForTest6));
 
         schema.shape(schemas2);
 

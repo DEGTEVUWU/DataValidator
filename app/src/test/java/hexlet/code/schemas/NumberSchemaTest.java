@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class NumberSchemaTest {
-    private static final int notAMagicNumberForTests3 = 3;
-    private static final int notAMagicNumberForTests6 = 6;
-    private static final int notAMagicNumberForTests12 = 12;
-    private static final int notAMagicNumberForTest5 = 5;
-    private static final Integer notAMagicNumberForTestNull = null;
-    private static final int notAMagicNumberForTestMinus5 = -5;
+    private final int notAMagicNumberForTests3 = 3;
+    private final int notAMagicNumberForTests6 = 6;
+    private final int notAMagicNumberForTests12 = 12;
+    private final int notAMagicNumberForTest5 = 5;
+    private final Integer notAMagicNumberForTestNull = null;
+    private final int notAMagicNumberForTestMinus5 = -5;
 
     @Test
     void requiredMethodTest() {

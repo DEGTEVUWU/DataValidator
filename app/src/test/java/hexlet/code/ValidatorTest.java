@@ -10,9 +10,9 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
-    private static final int notAMagicNumberForTests2 = 2;
-    private static final int notAMagicNumberForTests3 = 3;
-    private static final int notAMagicNumberForTest6 = 6;
+    private final int notAMagicNumberForTests2 = 2;
+    private final int notAMagicNumberForTests3 = 3;
+    private final int notAMagicNumberForTest6 = 6;
 
     @Test
     void stringMethodTest() {
