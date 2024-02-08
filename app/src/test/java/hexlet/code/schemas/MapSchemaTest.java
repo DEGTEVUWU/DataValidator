@@ -13,6 +13,7 @@ class MapSchemaTest {
     private static final int notAMagicNumberForTests3 = 3;
     private static final int notAMagicNumberForTest4 = 4;
     private static final int notAMagicNumberForTest6 = 6;
+    private static final Map notAMagicMapForTestNull = null;
 
     @Test
     void requiredMethodTest() {
@@ -128,6 +129,22 @@ class MapSchemaTest {
         assertThat(actual1).isEqualTo(expected1);
         assertThat(actual2).isEqualTo(expected2);
         assertThat(actual3).isTrue();
+    }
+
+    @Test
+    void isValidMethodTestWithFalseResult() {
+        var obj1 = new MapSchema();
+        obj1.setAllowNull(true);
+        var actual1 = obj1.isValid(notAMagicMapForTestNull);
+
+        var obj2 = new MapSchema();
+        obj2.setQuantityPair(notAMagicNumberForTests2);
+        var data = new HashMap<>();
+        data.put("key", "value");
+        var actual2 = obj2.isValid(data);
+
+        assertThat(actual1).isFalse();
+        assertThat(actual2).isFalse();
 
     }
 }

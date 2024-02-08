@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class StringSchemaTest {
     private static final int notAMagicNumberForTests5 = 5;
+    private static final String notAMagicValueForTestNull = null;
+
     @Test
     void requiredMethodTest() {
         var actual1 = new StringSchema();
@@ -56,6 +58,24 @@ class StringSchemaTest {
         assertThat(actual2).isEqualTo(expected2);
         assertThat(actual3).isEqualTo(expected3);
 
+    }
+    @Test
+    void isValidMethodTestWithFalseResult() {
+        var obj1 = new StringSchema();
+        obj1.setAllowNull(true);
+        var actual1 = obj1.isValid(notAMagicValueForTestNull);
+
+        var obj2 = new StringSchema();
+        obj2.setContainsString("oS");
+        var actual2 = obj2.isValid("Some text");
+
+        var obj3 = new StringSchema();
+        obj3.setLength(notAMagicNumberForTests5);
+        var actual3 = obj3.isValid("Some");
+
+        assertThat(actual1).isFalse();
+        assertThat(actual2).isFalse();
+        assertThat(actual3).isFalse();
 
     }
 }

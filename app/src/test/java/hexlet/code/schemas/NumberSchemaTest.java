@@ -64,23 +64,6 @@ class NumberSchemaTest {
         obj3.setMaxRange(notAMagicNumberForTests6);
         var actual3 = obj3.isValid(notAMagicNumberForTest5);
 
-
-        // false checking --->
-        var obj4 = new NumberSchema();
-        obj4.setAllowNull(true);
-        var actual4 = obj4.isValid(notAMagicNumberForTestNull);
-
-        var obj5 = new NumberSchema();
-        obj5.setAllowPositive(true);
-        var actual5 = obj5.isValid(notAMagicNumberForTestMinus5);
-
-        var obj6 = new NumberSchema();
-        obj6.setMinRange(notAMagicNumberForTests3);
-        obj6.setMaxRange(notAMagicNumberForTests3);
-        var actual6 = obj6.isValid(notAMagicNumberForTestMinus5);
-
-
-        // check via method --->
         var expectedObj1 = new NumberSchema();
         expectedObj1.required();
         var expected1 = expectedObj1.isValid(notAMagicNumberForTests12);
@@ -96,10 +79,27 @@ class NumberSchemaTest {
         assertThat(actual1).isEqualTo(expected1);
         assertThat(actual2).isEqualTo(expected2);
         assertThat(actual3).isEqualTo(expected3);
+
+
+    }
+    @Test
+    void isValidMethodTestWithFalseResult() {
+        var obj4 = new NumberSchema();
+        obj4.setAllowNull(true);
+        var actual4 = obj4.isValid(notAMagicNumberForTestNull);
+
+        var obj5 = new NumberSchema();
+        obj5.setAllowPositive(true);
+        var actual5 = obj5.isValid(notAMagicNumberForTestMinus5);
+
+        var obj6 = new NumberSchema();
+        obj6.setMinRange(notAMagicNumberForTests3);
+        obj6.setMaxRange(notAMagicNumberForTests3);
+        var actual6 = obj6.isValid(notAMagicNumberForTestMinus5);
+
         assertThat(actual4).isFalse();
         assertThat(actual5).isFalse();
         assertThat(actual6).isFalse();
-
 
     }
 }
