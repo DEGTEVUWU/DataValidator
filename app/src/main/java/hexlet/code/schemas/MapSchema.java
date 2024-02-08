@@ -3,29 +3,45 @@ package hexlet.code.schemas;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 @Getter
 @Setter
-public class MapSchema extends BaseSchema<Map<Object, Object>> {
+public class MapSchema<K, V> extends BaseSchema <Map<K, V>> {
     private boolean allowNull = false;
+    private boolean allowShape = false;
     private Integer quantityPair;
+    private Map<K, BaseSchema<V>> mapWithShape = new HashMap<>();
 
-    public MapSchema required() {
+    public void required() {
         this.allowNull = true;
-        return this;
     }
     public void sizeof(Integer quantity) {
         this.quantityPair = quantity;
     }
+
+    public void shape(Map <K, V> map) {
+        this.allowShape = true;
+        mapWithShape.putAll((Map<? extends K, ? extends BaseSchema<V>>) map);
+    }
     @Override
-    public boolean isValid(Map<Object, Object> value) {
+    public boolean isValid(Map<K, V> value) {
         if (value == null) {
             return !this.allowNull;
         }
         if (quantityPair != null && quantityPair != value.size()) {
             return false;
+        }
+        if (allowShape) {
+            for (var pairs : mapWithShape.entrySet()) {
+                K key = pairs.getKey();
+                V valueForValidation = value.get(key);
+                if (!mapWithShape.get(key).isValid(valueForValidation)) {
+                    return false;
+                }
+            }
         }
         return true;
     }
