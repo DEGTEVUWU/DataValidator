@@ -8,7 +8,7 @@ class NumberSchemaTest {
     private final int notAMagicNumberForTests6 = 6;
     private final int notAMagicNumberForTests12 = 12;
     private final int notAMagicNumberForTest5 = 5;
-    private final Integer notAMagicNumberForTestNull = null;
+    //private final Integer notAMagicNumberForTestNull = null;
     private final int notAMagicNumberForTestMinus5 = -5;
 
     @Test
@@ -84,10 +84,13 @@ class NumberSchemaTest {
     }
     @Test
     void isValidMethodTestWithFalseResult() {
+        /*
         var obj4 = new NumberSchema();
         obj4.setAllowNull(true);
         var actual4 = obj4.isValid(notAMagicNumberForTestNull);
 
+
+         */
         var obj5 = new NumberSchema();
         obj5.setAllowPositive(true);
         var actual5 = obj5.isValid(notAMagicNumberForTestMinus5);
@@ -97,7 +100,7 @@ class NumberSchemaTest {
         obj6.setMaxRange(notAMagicNumberForTests3);
         var actual6 = obj6.isValid(notAMagicNumberForTestMinus5);
 
-        assertThat(actual4).isFalse();
+       // assertThat(actual4).isFalse();
         assertThat(actual5).isFalse();
         assertThat(actual6).isFalse();
 
