@@ -31,12 +31,13 @@ public class NumberSchema extends BaseSchema<Integer> {
 
     @Override
     public boolean isValid(Integer number) {
-
-        if (allowNull != null && number == null) {
+        if (allowNull == null && number == null) {
+            return true;
+        } else if (allowNull != null && number == null) {
             return false;
         } else if (allowPositive != null && number <= 0) {
             return false;
-        } else if (number < this.minRange || number > this.maxRange) {
+        } else if (number < this.minRange  || number > this.maxRange) {
             return false;
         }
         return true;
