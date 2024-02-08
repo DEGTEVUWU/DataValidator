@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class StringSchema extends BaseSchema<String> {
+public final class StringSchema extends BaseSchema<String> {
     private boolean allowNull = false;
     private String containsString = "";
     private int length;

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
+public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
     private boolean allowNull = false;
     private boolean allowShape = false;
     private Integer quantityPair;

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public class NumberSchema extends BaseSchema<Integer> {
+public final class NumberSchema extends BaseSchema<Integer> {
     private Boolean allowNull = null;
     private Boolean allowPositive = null;
     private int minRange = Integer.MIN_VALUE;
