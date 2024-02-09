@@ -1,5 +1,6 @@
 package hexlet.code.schemas;
 
+import hexlet.code.Validator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema positive() {
         addCheck(
                 "positive",
-                value -> ((int) value) > 0
+                value -> value != null && ((int) value) > 0
         );
         return this;
     }
@@ -31,6 +32,13 @@ public final class NumberSchema extends BaseSchema<Integer> {
                 value -> ((int) value) >= min && ((int) value <= max)
         );
         return this;
+    }
+
+    public static void main(String[] args) {
+        var v = new Validator();
+        var test = v.number();
+
+        System.out.println(test.positive().isValid(-22));
     }
 
 }
