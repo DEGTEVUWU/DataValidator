@@ -12,7 +12,11 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
-
+    private final int notAMagicNumberForTests2 = 2;
+    private final int notAMagicNumberForTestsMinus2 = -2;
+    private final int notAMagicNumberForTests4 = 4;
+    private final int notAMagicNumberForTests6 = 6;
+    private final int notAMagicNumberForTests7 = 7;
     @Test
     void stringMethodTest() {
         Validator v = new Validator();
@@ -43,14 +47,18 @@ class ValidatorTest {
 
         var actual1 = numberObj.isValid(null);
         var actual2 = numberObj.required().isValid(null);
-        var actual3 = numberObj.required().isValid(2);
-        var actual4 = numberObj.required().isValid(-2);
-        var actual5 = numberObj.required().positive().isValid(-2);
-        var actual6 = numberObj.required().positive().isValid(2);
-        var actual7 = numberObj.required().positive().range(2, 6).isValid(4);
-        var actual8 = numberObj.required().positive().range(2, 6).isValid(2);
-        var actual9 = numberObj.required().positive().range(2, 6).isValid(6);
-        var actual10 = numberObj.required().positive().range(2, 6).isValid(7);
+        var actual3 = numberObj.required().isValid(notAMagicNumberForTests2);
+        var actual4 = numberObj.required().isValid(notAMagicNumberForTestsMinus2);
+        var actual5 = numberObj.required().positive().isValid(notAMagicNumberForTestsMinus2);
+        var actual6 = numberObj.required().positive().isValid(notAMagicNumberForTests2);
+        var actual7 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
+                .isValid(notAMagicNumberForTests4);
+        var actual8 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
+                .isValid(notAMagicNumberForTests2);
+        var actual9 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
+                .isValid(notAMagicNumberForTests6);
+        var actual10 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
+                .isValid(notAMagicNumberForTests7);
 
         assertThat(actual1).isTrue();
         assertThat(actual2).isFalse();
