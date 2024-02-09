@@ -1,5 +1,6 @@
 package hexlet.code.schemas;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,24 +10,48 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
     private boolean allowNull = false;
     private boolean allowShape = false;
     private Integer quantityPair;
     private Map<K, BaseSchema<V>> mapWithShape = new HashMap<>();
 
-    public void required() {
-        this.allowNull = true;
+    public MapSchema required() {
+        addCheck(
+                "required",
+                Objects::nonNull
+        );
+        return this;
     }
-    public void sizeof(Integer quantity) {
-        this.quantityPair = quantity;
+    public MapSchema sizeof(Integer quantity) {
+        addCheck(
+                "sizeof",
+                value -> ((Map) value).size() == quantity
+        );
+        return this;
     }
 
-    public void shape(Map<K, V> map) {
-        this.allowShape = true;
-        mapWithShape.putAll((Map<? extends K, ? extends BaseSchema<V>>) map);
+    public MapSchema<K, V> shape(Map<K, BaseSchema<V>> shapeMap) {
+        addCheck(
+                "shape",
+                value -> {
+                if (Objects.nonNull(value)) {
+                    this.mapWithShape = shapeMap;
+                    for (var pairs : mapWithShape.entrySet()) {
+                        K key = pairs.getKey();
+                        if (!mapWithShape.get(key).isValid(((Map) value).get(key))) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+                }
+        );
+        return this;
+
     }
-    @Override
+/*
     public boolean isValid(Map<K, V> value) {
         if (value == null) {
             return !this.allowNull;
@@ -44,20 +69,5 @@ public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
         return true;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MapSchema mapSchema = (MapSchema) o;
-        return allowNull == mapSchema.allowNull && Objects.equals(quantityPair, mapSchema.quantityPair);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(allowNull, quantityPair);
-    }
+ */
 }

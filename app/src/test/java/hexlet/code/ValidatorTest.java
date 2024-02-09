@@ -1,6 +1,8 @@
 package hexlet.code;
 
 import hexlet.code.schemas.BaseSchema;
+import hexlet.code.schemas.MapSchema;
+import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.Test;
 
@@ -10,25 +12,131 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
-    private final int notAMagicNumberForTests2 = 2;
-    private final int notAMagicNumberForTests3 = 3;
-    private final int notAMagicNumberForTest6 = 6;
 
     @Test
     void stringMethodTest() {
-        var actual1 = new Validator().string();
-        var actual2 = new Validator().string();
-        actual2.setAllowNull(true);
-        actual2.setContainsString("Some text");
+        Validator v = new Validator();
+        StringSchema stringObj = v.string();
 
-        var expected1 = new StringSchema();
-        var expected2 = true;
-        var expected3 = "Some text";
-        assertThat(actual1).isEqualTo(expected1);
-        assertThat(actual2.isAllowNull()).isEqualTo(expected2);
-        assertThat(actual2.getContainsString()).isEqualTo(expected3);
+        var actual1 = stringObj.isValid(null);
+        var actual2 = stringObj.isValid("");
+        var actual3 = stringObj.required().isValid(null);
+        var actual4 = stringObj.required().isValid("");
+        var actual5 = stringObj.required().isValid("Some");
+        var actual6 = stringObj.required().contains("w").isValid("Some");
+        var actual7 = stringObj.required().contains("So").isValid("Some");
+
+        assertThat(actual1).isTrue();
+        assertThat(actual2).isTrue();
+        assertThat(actual3).isFalse();
+        assertThat(actual4).isFalse();
+        assertThat(actual5).isTrue();
+        assertThat(actual6).isFalse();
+        assertThat(actual7).isTrue();
 
     }
+
+    @Test
+    void numberMethodTest() {
+        Validator v = new Validator();
+        NumberSchema numberObj = v.number();
+
+        var actual1 = numberObj.isValid(null);
+        var actual2 = numberObj.required().isValid(null);
+        var actual3 = numberObj.required().isValid(2);
+        var actual4 = numberObj.required().isValid(-2);
+        var actual5 = numberObj.required().positive().isValid(-2);
+        var actual6 = numberObj.required().positive().isValid(2);
+        var actual7 = numberObj.required().positive().range(2, 6).isValid(4);
+        var actual8 = numberObj.required().positive().range(2, 6).isValid(2);
+        var actual9 = numberObj.required().positive().range(2, 6).isValid(6);
+        var actual10 = numberObj.required().positive().range(2, 6).isValid(7);
+
+        assertThat(actual1).isTrue();
+        assertThat(actual2).isFalse();
+        assertThat(actual3).isTrue();
+        assertThat(actual4).isTrue();
+        assertThat(actual5).isFalse();
+        assertThat(actual6).isTrue();
+        assertThat(actual7).isTrue();
+        assertThat(actual8).isTrue();
+        assertThat(actual9).isTrue();
+        assertThat(actual10).isFalse();
+
+    }
+
+    @Test
+    void mapMethodTest() {
+        Validator v = new Validator();
+        MapSchema mapObj = v.map();
+
+        Map emptyMap = new HashMap();
+        Map notEmptyMap = new HashMap();
+        notEmptyMap.put("key", "value");
+
+        var actual1 = mapObj.isValid(null);
+        var actual2 = mapObj.required().isValid(null);
+        var actual3 = mapObj.required().isValid(emptyMap);
+        var actual4 = mapObj.required().isValid(notEmptyMap);
+        var actual5 = mapObj.required().sizeof(1).isValid(emptyMap);
+        var actual6 = mapObj.required().sizeof(1).isValid(notEmptyMap);
+        var actual7 = mapObj.required().sizeof(2).isValid(notEmptyMap);
+
+
+        assertThat(actual1).isTrue();
+        assertThat(actual2).isFalse();
+        assertThat(actual3).isTrue();
+        assertThat(actual4).isTrue();
+        assertThat(actual5).isFalse();
+        assertThat(actual6).isTrue();
+        assertThat(actual7).isFalse();
+    }
+
+    @Test
+    void mapMethodTestWithNestedValidationTesting() {
+        Validator v = new Validator();
+        MapSchema mapObj = v.map();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+
+        schemas.put("key", v.string().required());
+        schemas.put("key2", v.string().required().minLength(2));
+
+        mapObj.shape(schemas);
+
+        Map<String, String> nestedValidation1 = new HashMap();
+        nestedValidation1.put("key", "value");
+        nestedValidation1.put("key2", "value2");
+
+        Map<String, String> nestedValidation2 = new HashMap();
+        nestedValidation2.put("key", "");
+        nestedValidation2.put("key2", "value2");
+
+        Map<String, String> nestedValidation3 = new HashMap();
+        nestedValidation3.put("key", "value");
+        nestedValidation3.put("key2", "V");
+
+        Map<String, String> nestedValidation4 = new HashMap();
+        nestedValidation4.put("key", null);
+        nestedValidation4.put("key2", "value2");
+
+        Map<String, String> nestedValidation5 = new HashMap();
+        nestedValidation5.put("key", "value");
+        nestedValidation5.put("key2", "VA");
+
+        var actual1 = mapObj.isValid(nestedValidation1);
+        var actual2 = mapObj.isValid(nestedValidation2);
+        var actual3 = mapObj.isValid(nestedValidation3);
+        var actual4 = mapObj.isValid(nestedValidation4);
+        var actual5 = mapObj.isValid(nestedValidation5);
+
+        assertThat(actual1).isTrue();
+        assertThat(actual2).isFalse();
+        assertThat(actual3).isFalse();
+        assertThat(actual4).isFalse();
+        assertThat(actual5).isTrue();
+
+    }
+    /*
     @Test
     void numberMethodTest() {
         var actual1 = new Validator().number();
@@ -106,4 +214,6 @@ class ValidatorTest {
 
 
     }
+
+     */
 }

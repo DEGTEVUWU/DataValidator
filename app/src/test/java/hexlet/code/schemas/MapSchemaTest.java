@@ -1,13 +1,6 @@
 package hexlet.code.schemas;
-
-import hexlet.code.Validator;
-import org.junit.jupiter.api.Test;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 class MapSchemaTest {
+    /*
     private final int notAMagicNumberForTests1 = 1;
     private final int notAMagicNumberForTests2 = 2;
     private final int notAMagicNumberForTests3 = 3;
@@ -148,4 +141,6 @@ class MapSchemaTest {
         assertThat(actual2).isFalse();
 
     }
+
+     */
 }

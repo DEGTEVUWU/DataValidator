@@ -1,9 +1,7 @@
 package hexlet.code.schemas;
 
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
 class NumberSchemaTest {
+    /*
     private final int notAMagicNumberForTests3 = 3;
     private final int notAMagicNumberForTests6 = 6;
     private final int notAMagicNumberForTests12 = 12;
@@ -103,4 +101,6 @@ class NumberSchemaTest {
         assertThat(actual6).isFalse();
 
     }
+
+     */
 }
