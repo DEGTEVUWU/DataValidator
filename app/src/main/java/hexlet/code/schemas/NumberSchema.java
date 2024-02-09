@@ -29,7 +29,7 @@ public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema range(int min, int max) {
         addCheck(
                 "range",
-                value -> ((int) value) >= min && ((int) value <= max)
+                value -> value != null && ((int) value) >= min && ((int) value <= max)
         );
         return this;
     }
@@ -38,7 +38,7 @@ public final class NumberSchema extends BaseSchema<Integer> {
         var v = new Validator();
         var test = v.number();
 
-        System.out.println(test.positive().isValid(-22));
+        System.out.println(test.range(2, 5).isValid(null));
     }
 
 }
