@@ -36,9 +36,9 @@ public final class NumberSchema extends BaseSchema<Integer> {
 
     public static void main(String[] args) {
         var v = new Validator();
-        var test = v.number();
+        var test = v.number().required().positive().range(2, 44);
 
-        System.out.println(test.range(2, 5).isValid(null));
+        System.out.println(test.isValid(2));
     }
 
 }
