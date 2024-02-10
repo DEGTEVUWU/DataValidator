@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import hexlet.code.Validator;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
