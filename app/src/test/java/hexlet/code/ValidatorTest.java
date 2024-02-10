@@ -27,16 +27,18 @@ class ValidatorTest {
         var actual3 = stringObj.required().isValid(null);
         var actual4 = stringObj.required().isValid("");
         var actual5 = stringObj.required().isValid("Some");
-        var actual6 = stringObj.required().contains("w").isValid("Some");
-        var actual7 = stringObj.required().contains("So").isValid("Some");
+        var actual6 = stringObj.contains("wh").isValid("what does the fox say");
+        var actual7 = stringObj.contains("what").isValid("what does the fox say");
+        var actual8 = stringObj.contains("whatthe").isValid("what does the fox say");
 
         assertThat(actual1).isTrue();
         assertThat(actual2).isTrue();
         assertThat(actual3).isFalse();
         assertThat(actual4).isFalse();
         assertThat(actual5).isTrue();
-        assertThat(actual6).isFalse();
+        assertThat(actual6).isTrue();
         assertThat(actual7).isTrue();
+        assertThat(actual8).isFalse();
 
     }
 
