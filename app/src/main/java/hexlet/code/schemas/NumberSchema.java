@@ -20,7 +20,7 @@ public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema positive() {
         addCheck(
                 "positive",
-                value -> value != null && ((int) value) > 0
+                value -> value == null || ((Integer) value) > 0
         );
         return this;
     }
@@ -32,5 +32,6 @@ public final class NumberSchema extends BaseSchema<Integer> {
         );
         return this;
     }
+
 
 }
