@@ -27,14 +27,24 @@ class ValidatorTest {
         assertThat(stringObj.isValid("")).isTrue();
         assertThat(stringObj.isValid("Some text")).isTrue();
 
-        assertThat(stringObj.required().isValid(null)).isFalse();
-        assertThat(stringObj.required().isValid("")).isFalse();
-        assertThat(stringObj.required().isValid("Some text")).isTrue();
+        stringObj.required();
 
-        assertThat(stringObj.required().contains("wh").isValid(null)).isFalse();
-        assertThat(stringObj.required().contains("wh").isValid("")).isFalse();
-        assertThat(stringObj.required().contains("wh").isValid("what does the fox say")).isTrue();
-        assertThat(stringObj.required().contains("what").isValid("what does the fox say")).isTrue();
+        assertThat(stringObj.isValid(null)).isFalse();
+        assertThat(stringObj.isValid("")).isFalse();
+        assertThat(stringObj.isValid("Some text")).isTrue();
+
+        stringObj.contains("wh");
+
+        assertThat(stringObj.isValid(null)).isFalse();
+        assertThat(stringObj.isValid("")).isFalse();
+        assertThat(stringObj.isValid("what does the fox say")).isTrue();
+
+        stringObj.contains("what");
+
+        assertThat(stringObj.isValid("what does the fox say")).isTrue();
+
+        stringObj.contains("whatthe");
+
         assertThat(stringObj.required().contains("whatthe").isValid("what does the fox say")).isFalse();
 
 /*
