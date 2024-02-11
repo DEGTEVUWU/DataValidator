@@ -19,9 +19,25 @@ class ValidatorTest {
     private final int notAMagicNumberForTests7 = 7;
     @Test
     void stringMethodTest() {
+
         Validator v = new Validator();
         StringSchema stringObj = v.string();
 
+        assertThat(stringObj.isValid(null)).isTrue();
+        assertThat(stringObj.isValid("")).isTrue();
+        assertThat(stringObj.isValid("Some text")).isTrue();
+
+        assertThat(stringObj.required().isValid(null)).isFalse();
+        assertThat(stringObj.required().isValid("")).isFalse();
+        assertThat(stringObj.required().isValid("Some text")).isTrue();
+
+        assertThat(stringObj.required().contains("wh").isValid(null)).isFalse();
+        assertThat(stringObj.required().contains("wh").isValid("")).isFalse();
+        assertThat(stringObj.required().contains("wh").isValid("what does the fox say")).isTrue();
+        assertThat(stringObj.required().contains("what").isValid("what does the fox say")).isTrue();
+        assertThat(stringObj.required().contains("whatthe").isValid("what does the fox say")).isFalse();
+
+/*
         var actual1 = stringObj.isValid(null);
         var actual2 = stringObj.isValid("");
         var actual3 = stringObj.required().isValid(null);
@@ -40,6 +56,8 @@ class ValidatorTest {
         assertThat(actual7).isTrue();
         assertThat(actual8).isFalse();
 
+
+ */
     }
 
     @Test

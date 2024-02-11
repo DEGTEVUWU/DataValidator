@@ -22,7 +22,7 @@ public final class StringSchema extends BaseSchema<String> {
     public StringSchema contains(String chars) {
         addCheck(
                 "contains",
-                value -> ((String) value).contains(chars)
+                value -> value == null || ((String) value).contains(chars)
         );
         return this;
     }
