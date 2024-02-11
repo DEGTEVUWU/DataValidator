@@ -12,11 +12,6 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
-    private final int notAMagicNumberForTests2 = 2;
-    private final int notAMagicNumberForTestsMinus2 = -2;
-    private final int notAMagicNumberForTests4 = 4;
-    private final int notAMagicNumberForTests6 = 6;
-    private final int notAMagicNumberForTests7 = 7;
     @Test
     void stringMethodTest() {
         Validator v = new Validator();
@@ -75,41 +70,6 @@ class ValidatorTest {
         assertThat(numberObj.isValid(0)).isFalse();
         assertThat(numberObj.isValid(-7)).isFalse();
 
-
-
-/*
-
-        var actual1 = numberObj.isValid(null);
-        var actual2 = numberObj.isValid(notAMagicNumberForTests2);
-
-        var actual3 = numberObj.required().isValid(null);
-        var actual4 = numberObj.required().isValid(notAMagicNumberForTests2);
-        var actual5 = numberObj.required().isValid(notAMagicNumberForTestsMinus2);
-        var actual6 = numberObj.required().positive().isValid(notAMagicNumberForTestsMinus2);
-        var actual7 = numberObj.required().positive().isValid(notAMagicNumberForTests2);
-        var actual8 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
-                .isValid(notAMagicNumberForTests4);
-        var actual9 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
-                .isValid(notAMagicNumberForTests2);
-        var actual10 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
-                .isValid(notAMagicNumberForTests6);
-        var actual11 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
-                .isValid(notAMagicNumberForTests7);
-
-        assertThat(actual1).isTrue();
-        assertThat(actual2).isTrue();
-        assertThat(actual3).isFalse();
-        assertThat(actual4).isTrue();
-        assertThat(actual5).isTrue();
-        assertThat(actual6).isFalse();
-        assertThat(actual7).isTrue();
-        assertThat(actual8).isTrue();
-        assertThat(actual9).isTrue();
-        assertThat(actual10).isTrue();
-        assertThat(actual11).isFalse();
-
-
- */
     }
 
     @Test
@@ -217,84 +177,4 @@ class ValidatorTest {
         assertThat(schema.isValid(5)).isFalse();
         assertThat(schema.isValid(10)).isFalse();
     }
-    /*
-    @Test
-    void numberMethodTest() {
-        var actual1 = new Validator().number();
-        actual1.setAllowNull(true);
-        actual1.setAllowPositive(true);
-        actual1.setMinRange(notAMagicNumberForTests3);
-        actual1.setMaxRange(notAMagicNumberForTest6);
-
-
-        var expected1 = true;
-        var expected2 = true;
-        var expected3 = notAMagicNumberForTests3;
-        var expected4 = notAMagicNumberForTest6;
-
-        assertThat(actual1.getAllowNull()).isEqualTo(expected1);
-        assertThat(actual1.getAllowPositive()).isEqualTo(expected2);
-        assertThat(actual1.getMinRange()).isEqualTo(expected3);
-        assertThat(actual1.getMaxRange()).isEqualTo(expected4);
-    }
-
-    @Test
-    void mapMethodTest() {
-        var baseSchemaTestObj = new Validator();
-        var actual1 = new Validator().map();
-        actual1.setAllowNull(true);
-        actual1.setAllowShape(true);
-        actual1.setQuantityPair(notAMagicNumberForTests3);
-
-        var mapWithSchema = new HashMap<String, BaseSchema<String>>();
-        mapWithSchema.put("key1", baseSchemaTestObj.string().required());
-        mapWithSchema.put("key2", baseSchemaTestObj.string().required().contains("val"));
-
-        var expected1 = true;
-        var expected2 = true;
-        var expected3 = notAMagicNumberForTests3;
-
-        assertThat(actual1.isAllowNull()).isEqualTo(expected1);
-        assertThat(actual1.isAllowShape()).isEqualTo(expected2);
-        assertThat(actual1.getQuantityPair()).isEqualTo(expected3);
-    }
-    @Test
-    void mapMethodTestWithSchemas() {
-        var v = new Validator();
-        var schema = v.map();
-
-        Map<String, BaseSchema<String>> schemas = new HashMap<>();
-        schemas.put("firstName", v.string().required());
-        schemas.put("lastName", v.string().required().minLength(notAMagicNumberForTests2));
-
-        schema.shape(schemas);
-
-        Map<String, String> human1 = new HashMap<>();
-        human1.put("firstName", "John");
-        human1.put("lastName", "Smith");
-
-        Map<String, String> human2 = new HashMap<>();
-        human2.put("firstName", "John");
-        human2.put("lastName", null);
-
-        Map<String, String> human3 = new HashMap<>();
-        human3.put("firstName", "Anna");
-        human3.put("lastName", "B");
-
-        var actual1 = schema.isValid(human1);
-        var actual2 = schema.isValid(human2);
-        var actual3 = schema.isValid(human3);
-
-        var expected1 = true;
-        var expected2 = false;
-        var expected3 = false;
-
-        assertThat(actual1).isEqualTo(expected1);
-        assertThat(actual2).isEqualTo(expected2);
-        assertThat(actual3).isEqualTo(expected3);
-
-
-    }
-
-     */
 }
