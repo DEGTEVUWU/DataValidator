@@ -19,7 +19,6 @@ class ValidatorTest {
     private final int notAMagicNumberForTests7 = 7;
     @Test
     void stringMethodTest() {
-
         Validator v = new Validator();
         StringSchema stringObj = v.string();
 
@@ -32,6 +31,7 @@ class ValidatorTest {
         assertThat(stringObj.isValid(null)).isFalse();
         assertThat(stringObj.isValid("")).isFalse();
         assertThat(stringObj.isValid("Some text")).isTrue();
+        assertThat(stringObj.isValid("hexlet")).isTrue();
 
         stringObj.contains("wh");
 
@@ -47,27 +47,6 @@ class ValidatorTest {
 
         assertThat(stringObj.required().contains("whatthe").isValid("what does the fox say")).isFalse();
 
-/*
-        var actual1 = stringObj.isValid(null);
-        var actual2 = stringObj.isValid("");
-        var actual3 = stringObj.required().isValid(null);
-        var actual4 = stringObj.required().isValid("");
-        var actual5 = stringObj.required().isValid("Some");
-        var actual6 = stringObj.contains("wh").isValid("what does the fox say");
-        var actual7 = stringObj.contains("what").isValid("what does the fox say");
-        var actual8 = stringObj.contains("whatthe").isValid("what does the fox say");
-
-        assertThat(actual1).isTrue();
-        assertThat(actual2).isTrue();
-        assertThat(actual3).isFalse();
-        assertThat(actual4).isFalse();
-        assertThat(actual5).isTrue();
-        assertThat(actual6).isTrue();
-        assertThat(actual7).isTrue();
-        assertThat(actual8).isFalse();
-
-
- */
     }
 
     @Test
