@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,6 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
     private boolean allowNull = false;
     private boolean allowShape = false;

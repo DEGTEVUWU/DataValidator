@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +7,6 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema required() {
         addCheck(

@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +7,6 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 public final class StringSchema extends BaseSchema<String> {
 
     public StringSchema required() {
