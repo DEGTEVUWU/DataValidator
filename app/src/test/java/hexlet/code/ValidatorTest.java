@@ -46,7 +46,6 @@ class ValidatorTest {
         stringObj.contains("whatthe");
 
         assertThat(stringObj.required().contains("whatthe").isValid("what does the fox say")).isFalse();
-
     }
 
     @Test
@@ -54,32 +53,63 @@ class ValidatorTest {
         Validator v = new Validator();
         NumberSchema numberObj = v.number();
 
+        assertThat(numberObj.isValid(null)).isTrue();
+        assertThat(numberObj.isValid(7)).isTrue();
+
+        numberObj.positive();
+        assertThat(numberObj.isValid(null)).isTrue();
+
+        numberObj.required();
+
+        assertThat(numberObj.isValid(null)).isFalse();
+        assertThat(numberObj.isValid(7)).isTrue();
+        assertThat(numberObj.isValid(-7)).isFalse();
+        assertThat(numberObj.isValid(0)).isFalse();
+
+        numberObj.range(1, 7);
+
+        assertThat(numberObj.isValid(1)).isTrue();
+        assertThat(numberObj.isValid(7)).isTrue();
+        assertThat(numberObj.isValid(4)).isTrue();
+        assertThat(numberObj.isValid(77)).isFalse();
+        assertThat(numberObj.isValid(0)).isFalse();
+        assertThat(numberObj.isValid(-7)).isFalse();
+
+
+
+/*
+
         var actual1 = numberObj.isValid(null);
-        var actual2 = numberObj.required().isValid(null);
-        var actual3 = numberObj.required().isValid(notAMagicNumberForTests2);
-        var actual4 = numberObj.required().isValid(notAMagicNumberForTestsMinus2);
-        var actual5 = numberObj.required().positive().isValid(notAMagicNumberForTestsMinus2);
-        var actual6 = numberObj.required().positive().isValid(notAMagicNumberForTests2);
-        var actual7 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
-                .isValid(notAMagicNumberForTests4);
+        var actual2 = numberObj.isValid(notAMagicNumberForTests2);
+
+        var actual3 = numberObj.required().isValid(null);
+        var actual4 = numberObj.required().isValid(notAMagicNumberForTests2);
+        var actual5 = numberObj.required().isValid(notAMagicNumberForTestsMinus2);
+        var actual6 = numberObj.required().positive().isValid(notAMagicNumberForTestsMinus2);
+        var actual7 = numberObj.required().positive().isValid(notAMagicNumberForTests2);
         var actual8 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
-                .isValid(notAMagicNumberForTests2);
+                .isValid(notAMagicNumberForTests4);
         var actual9 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
-                .isValid(notAMagicNumberForTests6);
+                .isValid(notAMagicNumberForTests2);
         var actual10 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
+                .isValid(notAMagicNumberForTests6);
+        var actual11 = numberObj.required().positive().range(notAMagicNumberForTests2, notAMagicNumberForTests6)
                 .isValid(notAMagicNumberForTests7);
 
         assertThat(actual1).isTrue();
-        assertThat(actual2).isFalse();
-        assertThat(actual3).isTrue();
+        assertThat(actual2).isTrue();
+        assertThat(actual3).isFalse();
         assertThat(actual4).isTrue();
-        assertThat(actual5).isFalse();
-        assertThat(actual6).isTrue();
+        assertThat(actual5).isTrue();
+        assertThat(actual6).isFalse();
         assertThat(actual7).isTrue();
         assertThat(actual8).isTrue();
         assertThat(actual9).isTrue();
-        assertThat(actual10).isFalse();
+        assertThat(actual10).isTrue();
+        assertThat(actual11).isFalse();
 
+
+ */
     }
 
     @Test
@@ -99,6 +129,10 @@ class ValidatorTest {
         var actual6 = mapObj.required().sizeof(1).isValid(notEmptyMap);
         var actual7 = mapObj.required().sizeof(2).isValid(notEmptyMap);
 
+        notEmptyMap.put("key2", "value2");
+
+        var actual8 = mapObj.required().sizeof(2).isValid(notEmptyMap);
+        var actual9 = mapObj.required().sizeof(1).isValid(notEmptyMap);
 
         assertThat(actual1).isTrue();
         assertThat(actual2).isFalse();
@@ -107,6 +141,8 @@ class ValidatorTest {
         assertThat(actual5).isFalse();
         assertThat(actual6).isTrue();
         assertThat(actual7).isFalse();
+        assertThat(actual8).isTrue();
+        assertThat(actual9).isFalse();
     }
 
     @Test
