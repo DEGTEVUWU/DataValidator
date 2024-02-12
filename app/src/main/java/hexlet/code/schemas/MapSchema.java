@@ -2,8 +2,6 @@ package hexlet.code.schemas;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,5 +38,4 @@ public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
                 });
         return this;
     }
-
 }
